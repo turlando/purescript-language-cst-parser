@@ -521,9 +521,6 @@ token =
         pure { raw: SCU.singleton ch, char: ch }
 
   parseEscape
-    :: forall a
-     . (IsChar a)
-    => Lex (Unit -> ParseError) { raw :: String, char :: a }
   parseEscape = do
     ch <- charAny
     case ch of
@@ -545,9 +542,6 @@ token =
         fail $ LexInvalidCharEscape $ SCU.singleton ch
 
   parseHexEscape
-    :: forall a
-     . (IsChar a)
-    => Lex (Unit -> ParseError) { raw :: String, char :: a }
   parseHexEscape = do
     esc <- hexEscapeRegex
     case fromCharCode =<< Int.fromStringAs hexadecimal esc of
